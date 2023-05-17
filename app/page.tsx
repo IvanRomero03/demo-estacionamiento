@@ -7,7 +7,9 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 const getCounter = async () => {
-  const response = await axios.get("http://localhost:3000/api");
+  const response = await axios.get(
+    "http://demo-estacionamiento.vercel.app/api"
+  );
   console.log(response.data);
   return Number(response.data);
 };
