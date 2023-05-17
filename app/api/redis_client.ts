@@ -30,6 +30,4 @@ export const redis: Awaited<ReturnType<typeof createRedisClient>> =
     return redis;
   });
 
-if (process.env.NODE_ENV !== "production") {
-  globalForRedis.redis = redis;
-}
+globalForRedis.redis = redis;
