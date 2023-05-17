@@ -3,8 +3,8 @@ import { kv } from "@vercel/kv";
 
 const getData = async () => {
   console.log("getData");
-  const seter = await kv.set("counter", "0");
-  console.log("seter", seter);
+  // const seter = await kv.set("counter", "0");
+  // console.log("seter", seter);
   const counter = await kv.get<string>("counter");
   console.log("counter", counter);
   return counter;
