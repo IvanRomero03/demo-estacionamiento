@@ -23,21 +23,11 @@ const createRedisClient = async () => {
   return client;
 };
 
-const globalForRedis = globalThis as unknown as {
-  redis: Awaited<ReturnType<typeof createRedisClient>>;
-};
-
-const redis: Awaited<ReturnType<typeof createRedisClient>> =
-  globalForRedis.redis ||
-  (async () => await createRedisClient())().then((redis) => {
-    return redis;
-  });
-
-globalForRedis.redis = redis;
-
 export const GET = async (req: Request) => {
+  const redis = await createRedisClient();
   const count = await redis.get("counter");
   console.log({ count });
+  redis.disconnect();
   return new Response(String(count), { status: 200 });
 };
 
