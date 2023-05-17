@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { redis } from "../redis_client";
+import { redis } from "./redis_client";
 
 export const GET = async (req: Request) => {
   const count = await redis.get("counter");
