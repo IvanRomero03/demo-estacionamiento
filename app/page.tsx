@@ -17,6 +17,7 @@ export default function Home() {
     if (!password || !username || !name || !host || !port) {
       throw new Error("Missing env vars");
     }
+    console.log("createRedisClient");
     const client = createClient({
       password,
       socket: {
@@ -24,12 +25,15 @@ export default function Home() {
         port: Number(port),
       },
     });
+    console.log("client");
     await client.connect();
     return client;
   };
 
   const getCounter = async () => {
+    console.log("getCounter");
     const redis = await createRedisClient();
+    console.log("redis");
     const counter = await redis.get("counter");
     console.log(counter);
     void redis.disconnect();
