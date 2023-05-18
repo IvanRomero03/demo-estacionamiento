@@ -6,47 +6,18 @@ import { env } from "process";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-export default function Home() {
-  const createRedisClient = async () => {
-    const password = process.env.NEXT_PUBLIC_REDIS_PASSWORD;
-    const username = process.env.NEXT_PUBLIC_REDIS_USERNAME;
-    const name = process.env.NEXT_PUBLIC_REDIS_NAME;
-    const host = process.env.NEXT_PUBLIC_REDIS_HOST;
-    const port = process.env.NEXT_PUBLIC_REDIS_PORT;
-    console.log(password, username, name, host, port);
-    if (!password || !username || !name || !host || !port) {
-      throw new Error("Missing env vars");
-    }
-    console.log("createRedisClient");
-    const client = createClient({
-      password,
-      socket: {
-        host,
-        port: Number(port),
-      },
-    });
-    console.log("client");
-    await client.connect();
-    console.log("connect");
-    return client;
-  };
+const getCounter = async () => {
+  const response = await axios.get(
+    "http://demo-estacionamiento.vercel.app/api"
+  );
+  console.log(response.data.count);
+  return Number(response.data.count);
+};
 
-  const getCounter = async () => {
-    console.log("getCounter");
-    const redis = await createRedisClient();
-    console.log("redis");
-    const counter = await redis.get("counter");
-    console.log(counter);
-    void redis.disconnect();
-    return counter;
-    // console.log(response.data);
-    // return Number(response.data);
-  };
+export default function Home() {
   const { data: counter } = useQuery(["counter"], getCounter, {
     refetchInterval: 1000,
   });
-
-  console.log(counter);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
