@@ -28,7 +28,11 @@ export const GET = async () => {
   const count = await redis.get("counter");
   console.log({ count });
   await redis.disconnect();
-  return NextResponse.json({ count: count });
+  // headers: { "Content-Type": "application/json", 'Cache-Control', 's-maxage=0' }
+  // body { count: count }
+  return new NextResponse(JSON.stringify({ count }), {
+    headers: { "Content-Type": "application/json" },
+  });
 };
 
 // export default GET;
