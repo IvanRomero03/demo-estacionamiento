@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 import { createClient } from "redis";
 
 //import { redis } from "./redis_client";
@@ -28,7 +28,7 @@ export const GET = async (req: Request) => {
   const count = await redis.get("counter");
   console.log({ count });
   redis.disconnect();
-  return new Response(String(count), { status: 200 });
+  return NextResponse.json({ count });
 };
 
 // export default GET;
