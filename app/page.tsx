@@ -17,7 +17,6 @@ const getCounter = async () => {
 
 export default function Home() {
   const { data: counter } = useQuery(["counter"], getCounter, {
-    refetchInterval: 1000,
     cacheTime: 0,
   });
 
