@@ -27,6 +27,7 @@ export default function Home() {
     });
     console.log("client");
     await client.connect();
+    console.log("connect");
     return client;
   };
 
