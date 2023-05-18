@@ -31,7 +31,10 @@ export const GET = async () => {
   // headers: { "Content-Type": "application/json", 'Cache-Control', 's-maxage=0' }
   // body { count: count }
   return new NextResponse(JSON.stringify({ count }), {
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "s-maxage=0",
+    },
   });
 };
 
