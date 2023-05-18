@@ -28,7 +28,7 @@ export const GET = async () => {
   const count = await redis.get("counter");
   console.log({ count });
   redis.disconnect();
-  return NextResponse.json({ count });
+  return NextResponse.json({ count: count });
 };
 
 // export default GET;
