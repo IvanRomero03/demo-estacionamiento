@@ -23,7 +23,7 @@ const createRedisClient = async () => {
   return client;
 };
 
-export const GET = async (req: Request) => {
+export const GET = async () => {
   const redis = await createRedisClient();
   const count = await redis.get("counter");
   console.log({ count });
