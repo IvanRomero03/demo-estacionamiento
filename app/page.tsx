@@ -6,40 +6,42 @@ import { env } from "process";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-const createRedisClient = async () => {
-  const password = process.env.REDIS_PASSWORD;
-  const username = process.env.REDIS_USERNAME;
-  const name = process.env.REDIS_NAME;
-  const host = process.env.REDIS_HOST;
-  const port = process.env.REDIS_PORT;
-  if (!password || !username || !name || !host || !port) {
-    throw new Error("Missing env vars");
-  }
-  const client = createClient({
-    password,
-    socket: {
-      host,
-      port: Number(port),
-    },
-  });
-  await client.connect();
-  return client;
-};
-
-const getCounter = async () => {
-  const redis = await createRedisClient();
-  const counter = await redis.get("counter");
-  console.log(counter);
-  void redis.disconnect();
-  return counter;
-  // console.log(response.data);
-  // return Number(response.data);
-};
-
 export default function Home() {
+  const createRedisClient = async () => {
+    const password = process.env.REDIS_PASSWORD;
+    const username = process.env.REDIS_USERNAME;
+    const name = process.env.REDIS_NAME;
+    const host = process.env.REDIS_HOST;
+    const port = process.env.REDIS_PORT;
+    console.log(password, username, name, host, port);
+    if (!password || !username || !name || !host || !port) {
+      throw new Error("Missing env vars");
+    }
+    const client = createClient({
+      password,
+      socket: {
+        host,
+        port: Number(port),
+      },
+    });
+    await client.connect();
+    return client;
+  };
+
+  const getCounter = async () => {
+    const redis = await createRedisClient();
+    const counter = await redis.get("counter");
+    console.log(counter);
+    void redis.disconnect();
+    return counter;
+    // console.log(response.data);
+    // return Number(response.data);
+  };
   const { data: counter } = useQuery(["counter"], getCounter, {
     refetchInterval: 1000,
   });
+
+  console.log(counter);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
