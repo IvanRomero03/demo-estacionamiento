@@ -8,11 +8,11 @@ import { useQuery } from "@tanstack/react-query";
 
 export default function Home() {
   const createRedisClient = async () => {
-    const password = process.env.REDIS_PASSWORD;
-    const username = process.env.REDIS_USERNAME;
-    const name = process.env.REDIS_NAME;
-    const host = process.env.REDIS_HOST;
-    const port = process.env.REDIS_PORT;
+    const password = process.env.NEXT_PUBLIC_REDIS_PASSWORD;
+    const username = process.env.NEXT_PUBLIC_REDIS_USERNAME;
+    const name = process.env.NEXT_PUBLIC_REDIS_NAME;
+    const host = process.env.NEXT_PUBLIC_REDIS_HOST;
+    const port = process.env.NEXT_PUBLIC_REDIS_PORT;
     console.log(password, username, name, host, port);
     if (!password || !username || !name || !host || !port) {
       throw new Error("Missing env vars");
