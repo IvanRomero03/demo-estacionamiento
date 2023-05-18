@@ -8,7 +8,8 @@ import { useQuery } from "@tanstack/react-query";
 
 const getCounter = async () => {
   const response = await axios.get(
-    "https://demo-estacionamiento.vercel.app/api"
+    //"https://demo-estacionamiento.vercel.app/api"
+    "http://localhost:3000/api"
   );
   console.log(response.data.count);
   return Number(response.data.count);
@@ -17,6 +18,7 @@ const getCounter = async () => {
 export default function Home() {
   const { data: counter } = useQuery(["counter"], getCounter, {
     refetchInterval: 1000,
+    cacheTime: 0,
   });
 
   return (
