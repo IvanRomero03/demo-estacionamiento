@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const getCounter = async () => {
   const response = await axios.get(
-    "http://demo-estacionamiento.vercel.app/api"
+    "https://demo-estacionamiento.vercel.app/api"
   );
   console.log(response.data.count);
   return Number(response.data.count);
